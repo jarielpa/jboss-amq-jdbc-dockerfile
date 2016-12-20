@@ -1,10 +1,10 @@
 # Dockerfile for AMQ for Openshift v3 with JDBC Persistence
 
-Based from the [Jboss A-MQ Paas Image](https://docs.openshift.com/enterprise/3.1/using_images/xpaas_images/a_mq.html)
+Based from the Jboss A-MQ Paas Image see (registry.access.redhat.com/jboss-amq-6/amq62-openshiftl)
 
 Using [Source2Image stuff](https://github.com/openshift/source-to-image)
 
-[Other docs](https://docs.openshift.com/enterprise/3.0/creating_images/s2i.html)
+[Other docs](https://docs.openshift.com/container-platform/3.3/creating_images/index.html)
 
 ## What it should do...
 
@@ -17,7 +17,7 @@ Using [Source2Image stuff](https://github.com/openshift/source-to-image)
 
 ### s2i locally
 
-	s2i build git@github.com:welshstew/jboss-amq-jdbc-dockerfile.git registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
+	s2i build git@github.com:jarielp/jboss-amq-jdbc-dockerfile.git registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
 
 	docker run -d \
 	-e AMQ_LOCK_KEEP_ALIVE_PERIOD="5000" \
@@ -34,7 +34,7 @@ Using [Source2Image stuff](https://github.com/openshift/source-to-image)
 
 ### s2i on openshift
 
-	oc new-build registry.access.redhat.com/jboss-amq-6/amq62-openshift:1.2~https://github.com/welshstew/jboss-amq-jdbc-dockerfile.git
+	oc new-build registry.access.redhat.com/jboss-amq-6/amq62-openshift:1.2~https://github.com/jarielpa/jboss-amq-jdbc-dockerfile.git
 
 ## Getting it up and running (3 broker mesh)	
 
@@ -43,6 +43,15 @@ Using [Source2Image stuff](https://github.com/openshift/source-to-image)
 
 	#create the service account "amq-service-account"
 	oc create -f https://gist.githubusercontent.com/welshstew/08daeeef046aeb3ceb9b8b39c9e0d243/raw/1c9535126b57ab7c8adc4ae0859583c20c25eca9/amq-service-account.json
+
+E.g.:	
+		{
+		  "apiVersion": "v1",
+		  "kind": "ServiceAccount",
+		  "metadata": {
+		    "name": "amq-service-account"
+		  }
+	  }
 
 	#ensure the service account is added to the namespace for view permissions... (for pod scaling)
 	oc policy add-role-to-user view system:serviceaccount:namespace:amq-service-account
