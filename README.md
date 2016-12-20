@@ -13,11 +13,11 @@ Using [Source2Image stuff](https://github.com/openshift/source-to-image)
 3.  hopefully run up an image connected to db...! (default in memory hsql)
 
 
-## Build it
+## Build it (requires access to docker daemon)
 
 ### s2i locally
 
-	s2i build git@github.com:jarielp/jboss-amq-jdbc-dockerfile.git registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
+	s2i build git@github.com:jarielpa/jboss-amq-jdbc-dockerfile.git registry.access.redhat.com/jboss-amq-6/amq62-openshift test-amq-app
 
 	docker run -d \
 	-e AMQ_LOCK_KEEP_ALIVE_PERIOD="5000" \
